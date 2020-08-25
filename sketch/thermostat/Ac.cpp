@@ -32,6 +32,9 @@ void Ac::begin() {
     Serial.println("RUNNING IN PANASONIC MODE");
     panasonic.begin();
     panasonic.setModel(kPanasonicRkr);
+  } else if (mode == TOSHIBA) {
+    Serial.println("RUNNING IN TOSHIBA MODE");
+    toshiba.begin();
   }
 
   // restore settings
@@ -176,6 +179,11 @@ void Ac::send() {
       Serial.println(panasonic.toString());
       panasonic.send();
     #endif  // SEND_PANASONIC_AC
+  } else if (mode == TOSHIBA) {
+    #if SEND_TOSHIBA_AC
+      Serial.println(toshiba.toString());
+      toshiba.send();
+    #endif  // SEND_TOSHIBA_AC
   }
 
   // flash LED OFF
@@ -196,6 +204,8 @@ void Ac::setTargetMode(String value) {
       daikin.off();
     } else if (mode == PANASONIC) {
       panasonic.off();
+    } else if (mode == TOSHIBA) {
+      toshiba.off();
     }
   } else if (value == "cool") {
     if (mode == DAIKIN) {
@@ -204,6 +214,9 @@ void Ac::setTargetMode(String value) {
     } else if (mode == PANASONIC) {
       panasonic.on();
       panasonic.setMode(kPanasonicAcCool);
+    } else if (mode == TOSHIBA) {
+      toshiba.on();
+      toshiba.setMode(kToshibaAcCool);
     }
   } else if (value == "heat") {
     if (mode == DAIKIN) {
@@ -212,6 +225,9 @@ void Ac::setTargetMode(String value) {
     } else if (mode == PANASONIC) {
       panasonic.on();
       panasonic.setMode(kPanasonicAcHeat);
+    } else if (mode == TOSHIBA) {
+      toshiba.on();
+      toshiba.setMode(kToshibaAcHeat);
     }
   } else if (value == "fan") {
     if (mode == DAIKIN) {
@@ -220,6 +236,9 @@ void Ac::setTargetMode(String value) {
     } else if (mode == PANASONIC) {
       panasonic.on();
       panasonic.setMode(kPanasonicAcFan);
+    } else if (mode == TOSHIBA) {
+      toshiba.on();
+      toshiba.setMode(kToshibaAcFan);
     }
   } else if (value == "auto") {
     if (mode == DAIKIN) {
@@ -228,6 +247,9 @@ void Ac::setTargetMode(String value) {
     } else if (mode == PANASONIC) {
       panasonic.on();
       panasonic.setMode(kPanasonicAcAuto);
+    } else if (mode == TOSHIBA) {
+      toshiba.on();
+      toshiba.setMode(kToshibaAcAuto);
     }
   } else if (value == "dry") {
     if (mode == DAIKIN) {
@@ -236,6 +258,9 @@ void Ac::setTargetMode(String value) {
     } else if (mode == PANASONIC) {
       panasonic.on();
       panasonic.setMode(kPanasonicAcDry);
+    } else if (mode == TOSHIBA) {
+      toshiba.on();
+      toshiba.setMode(kToshibaAcDry);
     }
   } else {
     Serial.println("WARNING: No Valid Mode Passed. Turning Off.");
@@ -244,6 +269,9 @@ void Ac::setTargetMode(String value) {
       value = "off";
     } else if (mode == PANASONIC) {
       panasonic.off();
+      value = "off";
+    } else if (mode == TOSHIBA) {
+      toshiba.off();
       value = "off";
     }
   }
@@ -263,24 +291,32 @@ void Ac::setTargetFanSpeed(String value) {
       daikin.setFan(DAIKIN_FAN_AUTO);
     } else if (mode == PANASONIC) {
       panasonic.setFan(kPanasonicAcFanAuto);
+    } else if (mode == TOSHIBA) {
+      toshiba.setFan(kToshibaAcFanAuto);
     }
   } else if (value == "min") {
     if (mode == DAIKIN) {
       daikin.setFan(DAIKIN_FAN_MIN);
     } else if (mode == PANASONIC) {
       panasonic.setFan(kPanasonicAcFanMin);
+    } else if (mode == TOSHIBA) {
+      toshiba.setFan(kToshibaAcFanMin);
     }
   } else if (value == "max") {
     if (mode == DAIKIN) {
       daikin.setFan(DAIKIN_FAN_MAX);
     } else if (mode == PANASONIC) {
       panasonic.setFan(kPanasonicAcFanMax);
+    } else if (mode == TOSHIBA) {
+      toshiba.setFan(kToshibaAcFanMax);
     }
   } else {
     if (mode == DAIKIN) {
       daikin.setFan(DAIKIN_FAN_AUTO);
     } else if (mode == PANASONIC) {
       panasonic.setFan(kPanasonicAcFanAuto);
+    } else if (mode == TOSHIBA) {
+      toshiba.setFan(kToshibaAcFanAuto);
     }
     value = "auto";
     Serial.println("WARNING: No Valid Fan Speed Passed. Setting to Auto.");
@@ -299,6 +335,8 @@ void Ac::setTemperature(int value) {
     daikin.setTemp(value);
   } else if (mode == PANASONIC) {
     panasonic.setTemp(value);
+  } else if (mode == TOSHIBA) {
+    toshiba.setTemp(value);
   }
   Serial.print("Target Temperature: ");
   Serial.println(value);
@@ -310,7 +348,7 @@ void Ac::setVerticalSwing(bool value) {
     daikin.setSwingVertical(value);
   } else if (mode == PANASONIC) {
     panasonic.setSwingVertical(value ? kPanasonicAcSwingVAuto : kPanasonicAcSwingVHighest);
-  }
+  } 
   if (value != verticalSwing) {
     Serial.print("Verticle Swing: ");
     Serial.println(value);
@@ -338,7 +376,7 @@ void Ac::setQuietMode(bool value) {
     daikin.setQuiet(value);
   } else if (mode == PANASONIC) {
     panasonic.setQuiet(value);
-  }
+  } 
   if (value != quietMode) {
     Serial.print("Quiet Mode: ");
     Serial.println(value);
@@ -357,7 +395,7 @@ void Ac::setPowerfulMode(bool value) {
     daikin.setPowerful(value);
   } else if (mode == PANASONIC) {
     panasonic.setPowerful(value);
-  }
+  } 
   if (value != powerfulMode) {
     Serial.print("Powerful Mode: ");
     Serial.println(value);

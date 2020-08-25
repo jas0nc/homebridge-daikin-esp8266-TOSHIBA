@@ -9,11 +9,13 @@
 #include <IRsend.h>
 #include <ir_Daikin.h>
 #include <ir_Panasonic.h>
+#include <ir_Toshiba.h>
 
 #include "settings.h"
 
 #define DAIKIN           1
 #define PANASONIC        2
+#define TOSHIBA          3
 
 // EEPROM Storage Address Locations
 #define S_FAN            210
@@ -30,6 +32,7 @@ class Ac {
     DHT dht = DHT(DHT_PIN, DHT_TYPE, 11);
     IRDaikinESP daikin = IRDaikinESP(IR_PIN);
     IRPanasonicAc panasonic = IRPanasonicAc(IR_PIN);
+    IRToshibaAC toshiba = IRToshibaAC(IR_PIN);
 
     Ac(void);
 
