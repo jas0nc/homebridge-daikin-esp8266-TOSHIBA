@@ -1,3 +1,5 @@
+I fork this project since my new AC is TOSHIBA, but i already get used to use this homebridge plugin, so trying to add support for TOSHIBA AC.
+
 # homebridge-daikin-esp8266
 
 A Homebridge plugin to control my Daikin AC using an ESP8266 micro controller.
