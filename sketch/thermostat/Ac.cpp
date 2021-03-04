@@ -348,6 +348,8 @@ void Ac::setVerticalSwing(bool value) {
     daikin.setSwingVertical(value);
   } else if (mode == PANASONIC) {
     panasonic.setSwingVertical(value ? kPanasonicAcSwingVAuto : kPanasonicAcSwingVHighest);
+  } else if (mode == TOSHIBA) {
+    toshiba.setSwing(value ? kToshibaAcSwingOn : kToshibaAcSwingOff);
   } 
   if (value != verticalSwing) {
     Serial.print("Verticle Swing: ");
@@ -395,6 +397,8 @@ void Ac::setPowerfulMode(bool value) {
     daikin.setPowerful(value);
   } else if (mode == PANASONIC) {
     panasonic.setPowerful(value);
+  }  else if (mode == TOSHIBA) {
+    toshiba.setTurbo(value);
   } 
   if (value != powerfulMode) {
     Serial.print("Powerful Mode: ");
