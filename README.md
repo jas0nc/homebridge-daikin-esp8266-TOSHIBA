@@ -13,7 +13,7 @@ A Homebridge plugin to control my Daikin AC using an ESP8266 micro controller.
 ]
 ```
 
-![Wiring Diagram](thermostat wiring.jpg)
+![alt text](https://github.com/jas0nc/homebridge-daikin-esp8266-TOSHIBA/blob/master/thermostat%20wiring.jpg?raw=true)
 
 ## Dependencies
 
