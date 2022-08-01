@@ -50,13 +50,10 @@ void Ac::begin() {
 void Ac::loop () {
   webSocket.loop();
 
-  unsigned long currentMillis = millis();
-
-  if (currentMillis - loopLastRun >= 30000) {
-    loopLastRun = currentMillis;
-    this->getWeather();
-    this->broadcast();
-  }
+  this->getWeather();
+  this->broadcast();
+  Serial.println("ac loop broadcast thermo info");
+  
 }
 
 void Ac::webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
