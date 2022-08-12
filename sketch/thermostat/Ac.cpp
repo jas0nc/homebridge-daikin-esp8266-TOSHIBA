@@ -11,8 +11,8 @@ Ac::Ac() {
   currentTemperature = 0;
   currentHumidity = 0;
   targetMode = "off";
-  targetFanSpeed = "auto";
-  targetTemperature = 23;
+  targetFanSpeed = "med";
+  targetTemperature = 24;
   verticalSwing = true;
   horizontalSwing = true;
   quietMode = false;
@@ -298,6 +298,10 @@ void Ac::setTargetFanSpeed(String value) {
       panasonic.setFan(kPanasonicAcFanMin);
     } else if (mode == TOSHIBA) {
       toshiba.setFan(kToshibaAcFanMin);
+    }
+  } else if (value == "med") {
+    if (mode == TOSHIBA) {
+      toshiba.setFan(kToshibaAcFanMed);
     }
   } else if (value == "max") {
     if (mode == DAIKIN) {
